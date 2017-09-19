@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apec.druid.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.apec.druid.model.UserInfo">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="USER_PASSWD" jdbcType="VARCHAR" property="userPasswd"/>
+        <result column="USER_PHONE" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="USER_TITLE" jdbcType="VARCHAR" property="userTitle"/>
+        <result column="PLANTFORM_ID" jdbcType="VARCHAR" property="plantformId"/>
+        <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId"/>
+        <result column="ERP_NO" jdbcType="VARCHAR" property="erpNo"/>
+        <result column="ERP_NAME" jdbcType="VARCHAR" property="erpName"/>
+        <result column="ERP_PASSWD" jdbcType="VARCHAR" property="erpPasswd"/>
+        <result column="OPEN_ID" jdbcType="VARCHAR" property="openId"/>
+        <result column="WECHAT_NO" jdbcType="VARCHAR" property="wechatNo"/>
+        <result column="GROUP_ID" jdbcType="VARCHAR" property="groupId"/>
+        <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName"/>
+        <result column="IDCARD_NO" jdbcType="VARCHAR" property="idcardNo"/>
+        <result column="USER_ADDRESS" jdbcType="VARCHAR" property="userAddress"/>
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName"/>
+        <result column="BANK_ACCOUNT" jdbcType="VARCHAR" property="bankAccount"/>
+        <result column="PROVINCE_ID" jdbcType="VARCHAR" property="provinceId"/>
+        <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="CITY_ID" jdbcType="VARCHAR" property="cityId"/>
+        <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName"/>
+        <result column="BUSINESS_AREA_ID" jdbcType="VARCHAR" property="businessAreaId"/>
+        <result column="BUSINESS_AREA_NAME" jdbcType="VARCHAR" property="businessAreaName"/>
+        <result column="MARKETER_ID" jdbcType="VARCHAR" property="marketerId"/>
+        <result column="MARKETER_NAME" jdbcType="VARCHAR" property="marketerName"/>
+        <result column="USER_TYPE" jdbcType="INTEGER" property="userType"/>
+        <result column="BUSINESS_TYPE_ID" jdbcType="VARCHAR" property="businessTypeId"/>
+        <result column="BUSINESS_TYPE_NAME" jdbcType="VARCHAR" property="businessTypeName"/>
+        <result column="GROUP_FLAG" jdbcType="CHAR" property="groupFlag"/>
+        <result column="GENDER" jdbcType="CHAR" property="gender"/>
+        <result column="USER_NICK_NAME" jdbcType="VARCHAR" property="userNickName"/>
+        <result column="USER_HEAD_IMAGE_URL" jdbcType="VARCHAR" property="userHeadImageUrl"/>
+        <result column="USER_RANK" jdbcType="VARCHAR" property="userRank"/>
+        <result column="USER_ROLE" jdbcType="VARCHAR" property="userRole"/>
+        <result column="AUTH_TYPE" jdbcType="INTEGER" property="authType"/>
+        <result column="AUTH_STATUS" jdbcType="INTEGER" property="authStatus"/>
+        <result column="SIGN_ACCOUNT_STATUS" jdbcType="INTEGER" property="signAccountStatus"/>
+        <result column="SIGN_USER_ID" property="signUserId" jdbcType="VARCHAR"/>
+        <result column="SOURCE_ID" jdbcType="CHAR" property="sourceId"/>
+        <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId"/>
+        <result column="OECD_NO" jdbcType="VARCHAR" property="oecdNo"/>
+        <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="ENABLE_FLAG" jdbcType="CHAR" property="enableFlag"/>
+        <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+        <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="LAST_UPDATE_BY" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_NAME, USER_PASSWD, USER_PHONE, USER_TITLE, PLANTFORM_ID, CUSTOMER_ID,ERP_NO, ERP_NAME,
+        ERP_PASSWD, OPEN_ID, WECHAT_NO, GROUP_ID, GROUP_NAME, IDCARD_NO, USER_ADDRESS, COMPANY_NAME,
+        BANK_ACCOUNT, PROVINCE_ID, PROVINCE_NAME, CITY_ID, CITY_NAME, BUSINESS_AREA_ID, BUSINESS_AREA_NAME,
+        MARKETER_ID, MARKETER_NAME, USER_TYPE, BUSINESS_TYPE_ID, BUSINESS_TYPE_NAME, GROUP_FLAG,
+        GENDER, USER_NICK_NAME,USER_HEAD_IMAGE_URL,USER_RANK,USER_ROLE,AUTH_TYPE,
+        AUTH_STATUS,SIGN_ACCOUNT_STATUS,SIGN_USER_ID,SOURCE_ID, DEVICE_ID,
+        OECD_NO,STATUS, REMARK,
+        ENABLE_FLAG,
+        CREATE_BY, CREATE_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE
+    </sql>
+    <!--根据唯一条件查询客户信息-->
+    <select id="findUserInfoById" resultMap="BaseResultMap" parameterType="com.apec.druid.dto.UserInfoDTO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_info
+        WHERE 1=1
+        <if test="status !=null">
+            and STATUS =#{status,jdbcType=CHAR}
+        </if>
+        <if test="enableFlag !=null">
+            and ENABLE_FLAG = #{enableFlag,jdbcType=CHAR}
+        </if>
+        <if test="userPhone != null">
+            and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+        </if>
+        <if test="plantformId != null">
+            and PLANTFORM_ID = #{plantformId,jdbcType=VARCHAR}
+        </if>
+        <if test="openId != null">
+            and open_id = #{openId,jdbcType=VARCHAR}
+        </if>
+        <if test="userPasswd != null">
+            and USER_PASSWD = #{userPasswd,jdbcType=VARCHAR}
+        </if>
+        <if test="customerId != null">
+            and CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        </if>
+        <if test="erpNo != null">
+            and ERP_NO = #{erpNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="userRank !=null">
+            and USER_RANK = #{userRank,jdbcType=VARCHAR}
+        </if>
+        limit 1
+    </select>
+
+    <!--查询满足条件的用户记录列表-->
+    <select id="findUserInfoAll" resultMap="BaseResultMap" parameterType="com.apec.druid.dto.UserInfoDTO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_info
+        WHERE 1=1
+        <if test="status !=null">
+            and STATUS =#{status,jdbcType=CHAR}
+        </if>
+        <if test="enableFlag !=null">
+            and ENABLE_FLAG =#{enableFlag,jdbcType=CHAR}
+        </if>
+        <if test="userPhone != null">
+            and USER_PHONE like CONCAT('%',#{userPhone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="plantformId != null">
+            and PLANTFORM_ID = #{plantformId,jdbcType=VARCHAR}
+        </if>
+        <if test="openId != null">
+            and open_id = #{openId,jdbcType=VARCHAR}
+        </if>
+        <if test="erpNo != null">
+            and ERP_NO = #{erpNo,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="marketerId != null">
+            and marketer_id = #{marketerId,jdbcType=VARCHAR}
+        </if>
+        <if test="customerId != null">
+            and CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        </if>
+        <if test="authStatus != null">
+            and AUTH_STATUS = #{authStatus,jdbcType=INTEGER}
+        </if>
+        <if test="signAccountStatus != null">
+            and SIGN_ACCOUNT_STATUS = #{signAccountStatus,jdbcType=INTEGER}
+        </if>
+        <if test="businessTypeId != null">
+            and BUSINESS_TYPE_ID =#{businessTypeId,jdbcType=VARCHAR}
+        </if>
+        <if test="userRank !=null">
+            and USER_RANK = #{userRank,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null">
+            and USER_NAME like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="companyName != null">
+            and COMPANY_NAME like CONCAT('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="pageSize != 0">
+            ORDER BY CREATE_DATE DESC
+            LIMIT #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--查询满足条件的用户记录数-->
+    <select id="countUserInfoAll" resultType="java.lang.Long" parameterType="com.apec.druid.dto.UserInfoDTO">
+        SELECT
+        COUNT(1)
+        FROM user_info
+        WHERE 1=1
+        <if test="status !=null">
+            and STATUS =#{status,jdbcType=CHAR}
+        </if>
+        <if test="enableFlag !=null">
+            and ENABLE_FLAG =#{enableFlag,jdbcType=CHAR}
+        </if>
+        <if test="userPhone!= null">
+            and USER_PHONE like CONCAT('%',#{userPhone,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="plantformId != null">
+            and PLANTFORM_ID = #{plantformId,jdbcType=VARCHAR}
+        </if>
+        <if test="openId != null">
+            and open_id = #{openId,jdbcType=VARCHAR}
+        </if>
+        <if test="erpNo != null">
+            and ERP_NO = #{erpNo,jdbcType=VARCHAR}
+        </if>
+        <if test="groupId != null">
+            and group_id like CONCAT('%',#{groupId,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="businessAreaId != null">
+            and business_area_id = #{businessAreaId,jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null">
+            and id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="marketerId != null">
+            and marketer_id = #{marketerId,jdbcType=VARCHAR}
+        </if>
+        <if test="authStatus != null">
+            and auth_status = #{authStatus,jdbcType=INTEGER}
+        </if>
+        <if test="signAccountStatus != null">
+            and SIGN_ACCOUNT_STATUS = #{signAccountStatus,jdbcType=INTEGER}
+        </if>
+        <if test="customerId != null">
+            and CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        </if>
+        <if test="businessTypeId != null">
+            and BUSINESS_TYPE_ID =#{businessTypeId,jdbcType=VARCHAR}
+        </if>
+        <if test="userRank !=null">
+            and USER_RANK = #{userRank,jdbcType=VARCHAR}
+        </if>
+        <if test="userName != null">
+            and USER_NAME like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="companyName != null">
+            and COMPANY_NAME like CONCAT('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+    <!--新增用户-->
+    <insert id="insertSelective" parameterType="com.apec.druid.model.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userName != null">
+                USER_NAME,
+            </if>
+            <if test="userPasswd != null">
+                USER_PASSWD,
+            </if>
+            <if test="userPhone != null">
+                USER_PHONE,
+            </if>
+            <if test="userTitle != null">
+                USER_TITLE,
+            </if>
+            <if test="plantformId != null">
+                PLANTFORM_ID,
+            </if>
+            <if test="customerId != null">
+                CUSTOMER_ID,
+            </if>
+            <if test="erpNo != null">
+                ERP_NO,
+            </if>
+            <if test="erpName != null">
+                ERP_NAME,
+            </if>
+            <if test="erpPasswd != null">
+                ERP_PASSWD,
+            </if>
+            <if test="openId != null">
+                OPEN_ID,
+            </if>
+            <if test="wechatNo != null">
+                WECHAT_NO,
+            </if>
+            <if test="groupId != null">
+                GROUP_ID,
+            </if>
+            <if test="groupName != null">
+                GROUP_NAME,
+            </if>
+            <if test="idcardNo != null">
+                IDCARD_NO,
+            </if>
+            <if test="userAddress != null">
+                USER_ADDRESS,
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME,
+            </if>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT,
+            </if>
+            <if test="provinceId != null">
+                PROVINCE_ID,
+            </if>
+            <if test="provinceName != null">
+                PROVINCE_NAME,
+            </if>
+            <if test="cityId != null">
+                CITY_ID,
+            </if>
+            <if test="cityName != null">
+                CITY_NAME,
+            </if>
+            <if test="businessAreaId != null">
+                BUSINESS_AREA_ID,
+            </if>
+            <if test="businessAreaName != null">
+                BUSINESS_AREA_NAME,
+            </if>
+            <if test="marketerId != null">
+                MARKETER_ID,
+            </if>
+            <if test="marketerName != null">
+                MARKETER_NAME,
+            </if>
+            <if test="userType != null">
+                USER_TYPE,
+            </if>
+            <if test="businessTypeId != null">
+                BUSINESS_TYPE_ID,
+            </if>
+            <if test="businessTypeName != null">
+                BUSINESS_TYPE_NAME,
+            </if>
+            <if test="groupFlag != null">
+                GROUP_FLAG,
+            </if>
+            <if test="gender != null">
+                GENDER,
+            </if>
+            <if test="userNickName != null">
+                USER_NICK_NAME,
+            </if>
+            <if test="userHeadImageUrl!=null">
+                USER_HEAD_IMAGE_URL,
+            </if>
+            <if test="userRank !=null">
+                USER_RANK,
+            </if>
+            <if test="userRole !=null">
+                USER_ROLE,
+            </if>
+            <if test="authType != null">
+                AUTH_TYPE,
+            </if>
+            <if test="authStatus != null">
+                AUTH_STATUS,
+            </if>
+            <if test="signAccountStatus != null">
+                SIGN_ACCOUNT_STATUS,
+            </if>
+            <if test="signUserId != null">
+                SIGN_USER_ID,
+            </if>
+            <if test="sourceId != null">
+                SOURCE_ID,
+            </if>
+            <if test="deviceId != null">
+                DEVICE_ID,
+            </if>
+            <if test=" oecdNo != null">
+                OECD_NO,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+            <if test="enableFlag != null">
+                ENABLE_FLAG,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY,
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE,
+            </if>
+            <if test="lastUpdateBy != null">
+                LAST_UPDATE_BY,
+            </if>
+            <if test="lastUpdateDate != null">
+                LAST_UPDATE_DATE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPasswd != null">
+                #{userPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userTitle != null">
+                #{userTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="plantformId != null">
+                #{plantformId,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="erpNo != null">
+                #{erpNo,jdbcType=VARCHAR},
+            </if>
+            <if test="erpName != null">
+                #{erpName,jdbcType=VARCHAR},
+            </if>
+            <if test="erpPasswd != null">
+                #{erpPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatNo != null">
+                #{wechatNo,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null">
+                #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardNo != null">
+                #{idcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null">
+                #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null">
+                #{provinceId,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceName != null">
+                #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null">
+                #{cityId,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaId != null">
+                #{businessAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaName != null">
+                #{businessAreaName,jdbcType=VARCHAR},
+            </if>
+            <if test="marketerId != null">
+                #{marketerId,jdbcType=VARCHAR},
+            </if>
+            <if test="marketerName != null">
+                #{marketerName,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="businessTypeId != null">
+                #{businessTypeId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessTypeName != null">
+                #{businessTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="groupFlag != null">
+                #{groupFlag,jdbcType=CHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="userNickName != null">
+                #{userNickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userHeadImageUrl!=null">
+                #{userHeadImageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userRank !=null">
+                #{userRank,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole !=null">
+                #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="authType != null">
+                #{authType,jdbcType=INTEGER},
+            </if>
+            <if test="authStatus != null">
+                #{authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signAccountStatus != null">
+                #{signAccountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signUserId != null">
+                #{signUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                #{sourceId,jdbcType=CHAR},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test=" oecdNo != null">
+                #{ oecdNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="enableFlag != null">
+                #{enableFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <!--更新用户信息-->
+    <update id="updateUserInfo" parameterType="com.apec.druid.dto.UserInfoDTO">
+        update user_info
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPasswd != null">
+                USER_PASSWD = #{userPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="userTitle != null">
+                USER_TITLE = #{userTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="erpNo != null">
+                ERP_NO = #{erpNo,jdbcType=VARCHAR},
+            </if>
+            <if test="erpName != null">
+                ERP_NAME = #{erpName,jdbcType=VARCHAR},
+            </if>
+            <if test="erpPasswd != null">
+                ERP_PASSWD = #{erpPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                OPEN_ID = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatNo != null">
+                WECHAT_NO = #{wechatNo,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null">
+                GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="idcardNo != null">
+                IDCARD_NO = #{idcardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null">
+                PROVINCE_ID = #{provinceId,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceName != null">
+                PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null">
+                CITY_ID = #{cityId,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                CITY_NAME = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaId != null">
+                BUSINESS_AREA_ID = #{businessAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaName != null">
+                BUSINESS_AREA_NAME = #{businessAreaName,jdbcType=VARCHAR},
+            </if>
+            <if test="marketerId != null">
+                MARKETER_ID = #{marketerId,jdbcType=VARCHAR},
+            </if>
+            <if test="marketerName != null">
+                MARKETER_NAME = #{marketerName,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                USER_TYPE = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="businessTypeId != null">
+                BUSINESS_TYPE_ID = #{businessTypeId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessTypeName != null">
+                BUSINESS_TYPE_NAME = #{businessTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="groupFlag != null">
+                GROUP_FLAG = #{groupFlag,jdbcType=CHAR},
+            </if>
+            <if test="gender != null">
+                GENDER = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="userNickName != null">
+                USER_NICK_NAME = #{userNickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userHeadImageUrl!=null">
+                USER_HEAD_IMAGE_URL = #{userHeadImageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userRank !=null">
+                USER_RANK = #{userRank,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole !=null">
+                USER_ROLE = #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="authType != null">
+                AUTH_TYPE = #{authType,jdbcType=INTEGER},
+            </if>
+            <if test="authStatus != null">
+                AUTH_STATUS = #{authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signAccountStatus != null">
+                SIGN_ACCOUNT_STATUS = #{signAccountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signUserId != null">
+                SIGN_USER_ID = #{signUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                SOURCE_ID = #{sourceId,jdbcType=CHAR},
+            </if>
+            <if test="deviceId != null">
+                DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test=" oecdNo != null">
+                OECD_NO = #{ oecdNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="enableFlag != null">
+                ENABLE_FLAG = #{enableFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        <if test="userId !=null">
+            and ID = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="plantformId != null">
+            and PLANTFORM_ID = #{plantformId,jdbcType=VARCHAR}
+        </if>
+        <if test="userPhone !=null">
+            and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <!--更新用户信息-->
+    <update id="updateUserInfoByCustomerId" parameterType="com.apec.druid.dto.UserInfoDTO">
+        update user_info
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPasswd != null">
+                USER_PASSWD = #{userPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="userTitle != null">
+                USER_TITLE = #{userTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="erpNo != null">
+                ERP_NO = #{erpNo,jdbcType=VARCHAR},
+            </if>
+            <if test="erpName != null">
+                ERP_NAME = #{erpName,jdbcType=VARCHAR},
+            </if>
+            <if test="erpPasswd != null">
+                ERP_PASSWD = #{erpPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                OPEN_ID = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatNo != null">
+                WECHAT_NO = #{wechatNo,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null">
+                GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null">
+                BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null">
+                PROVINCE_ID = #{provinceId,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceName != null">
+                PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null">
+                CITY_ID = #{cityId,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                CITY_NAME = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaId != null">
+                BUSINESS_AREA_ID = #{businessAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessAreaName != null">
+                BUSINESS_AREA_NAME = #{businessAreaName,jdbcType=VARCHAR},
+            </if>
+            <if test="userType != null">
+                USER_TYPE = #{userType,jdbcType=INTEGER},
+            </if>
+            <if test="businessTypeId != null">
+                BUSINESS_TYPE_ID = #{businessTypeId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessTypeName != null">
+                BUSINESS_TYPE_NAME = #{businessTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="groupFlag != null">
+                GROUP_FLAG = #{groupFlag,jdbcType=CHAR},
+            </if>
+            <if test="gender != null">
+                GENDER = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="userNickName != null">
+                USER_NICK_NAME = #{userNickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userHeadImageUrl!=null">
+                USER_HEAD_IMAGE_URL = #{userHeadImageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userRank !=null">
+                USER_RANK = #{userRank,jdbcType=VARCHAR},
+            </if>
+            <if test="userRole !=null">
+                USER_ROLE = #{userRole,jdbcType=VARCHAR},
+            </if>
+            <if test="authType != null">
+                AUTH_TYPE = #{authType,jdbcType=INTEGER},
+            </if>
+            <if test="authStatus != null">
+                AUTH_STATUS = #{authStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signAccountStatus != null">
+                SIGN_ACCOUNT_STATUS = #{signAccountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="signUserId != null">
+                SIGN_USER_ID = #{signUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                SOURCE_ID = #{sourceId,jdbcType=CHAR},
+            </if>
+            <if test="deviceId != null">
+                DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test=" oecdNo != null">
+                OECD_NO = #{ oecdNo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="enableFlag != null">
+                ENABLE_FLAG = #{enableFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        and CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+    </update>
+    <update id="delOpenId" parameterType="com.apec.druid.dto.UserInfoDTO">
+        update user_info set
+        OPEN_ID = null
+        where OPEN_ID = #{openId,jdbcType=VARCHAR}
+    </update>
+
+    <!--批量查询用户信息-->
+    <select id="queryUserInfoBatch" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_info
+        WHERE ENABLE_FLAG='Y'
+        and ID in
+        <foreach collection="list" item="item" close=")" index="index" open="(" separator=",">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+</mapper>
