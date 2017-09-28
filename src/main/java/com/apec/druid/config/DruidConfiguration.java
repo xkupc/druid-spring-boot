@@ -21,6 +21,7 @@ public class DruidConfiguration {
      */
     @Bean
     public ServletRegistrationBean DruidStatViewServlet(){
+        System.out.println("初始化statViewServlet......................");
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
         //添加初始化参数：initParams
         //白名单：
