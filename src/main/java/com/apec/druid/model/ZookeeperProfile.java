@@ -14,6 +14,14 @@ import org.springframework.stereotype.Component;
 
 public class ZookeeperProfile {
     /**
+     * 应用的ip
+     */
+    private String ipAddress;
+    /**
+     * 应用的端口
+     */
+    private String serverPort;
+    /**
      * 配置的根目录
      */
     private String rootNode = "id_sequence";
@@ -43,7 +51,8 @@ public class ZookeeperProfile {
 
     }
 
-    public ZookeeperProfile(String rootNode, String environment, String connectString, String sequenceSpaceName, RetryPolicy retryPolicy) {
+    public ZookeeperProfile(String rootNode, String environment, String connectString,
+                            String sequenceSpaceName, RetryPolicy retryPolicy) {
         this.rootNode = rootNode;
         this.environment = environment;
         this.connectString = connectString;
@@ -120,5 +129,21 @@ public class ZookeeperProfile {
 
     public void setRetryPolicy(RetryPolicy retryPolicy) {
         this.retryPolicy = retryPolicy;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(String serverPort) {
+        this.serverPort = serverPort;
     }
 }

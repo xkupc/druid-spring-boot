@@ -3,9 +3,12 @@ package com.apec.druid.config;
 import com.alibaba.fastjson.JSONObject;
 import com.apec.druid.model.ZookeeperProfile;
 import com.apec.druid.service.impl.ZookeeperIdleafServiceImpl;
+import com.apec.druid.util.IpUtils;
+import com.apec.druid.util.SnowFlakeKeyGen;
 import org.apache.curator.retry.RetryNTimes;
 import org.assertj.core.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +24,8 @@ public class ZookeeperConfig {
     String zkJson;
     @Value("${spring.profiles.active}")
     String environment;
+    @Value("${server.port}")
+    String serverPort;
 
     @Bean
     public ZookeeperProfile createZookeeperProfile() {
@@ -30,8 +35,11 @@ public class ZookeeperConfig {
         String sequenceSpaceName = zkJsonObject.getString("namespace");
         int maxRetries = zkJsonObject.getInteger("maxRetries");
         int baseSleepTimeMilliseconds = zkJsonObject.getInteger("baseSleepTimeMilliseconds");
-        return new ZookeeperProfile(Strings.isNullOrEmpty(rootNode) ? "id_sequence" : rootNode, environment,
+        ZookeeperProfile zookeeperProfile = new ZookeeperProfile(Strings.isNullOrEmpty(rootNode) ? "id_sequence" : rootNode, environment,
                 connectString, sequenceSpaceName, new RetryNTimes(maxRetries, baseSleepTimeMilliseconds));
+        zookeeperProfile.setServerPort(serverPort);
+        zookeeperProfile.setIpAddress(IpUtils.getLocalHostIp());
+        return zookeeperProfile;
     }
 
     @Bean

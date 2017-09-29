@@ -4,6 +4,7 @@ import com.apec.druid.mapper.IdSegmentMapper;
 import com.apec.druid.model.ZookeeperProfile;
 import com.apec.druid.service.impl.MysqlIdleafServiceImpl;
 import com.apec.druid.service.impl.ZookeeperIdleafServiceImpl;
+import com.apec.druid.util.SnowFlakeKeyGen;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,9 +67,21 @@ public class BaseTestService {
     }
 
     @Test
-    public void getIdByZookeeper(){
+    public void getIdByZookeeper() throws Exception {
         String id1 = zookeeperIdleafService.getId("order");
         String id2 = zookeeperIdleafService.getId("user");
+        String id3 = zookeeperIdleafService.getId("test");
+        String id4 = zookeeperIdleafService.getId("test");
+        Long id5 = zookeeperIdleafService.getId("test", "");
+        Long id6 = zookeeperIdleafService.getId("test", "");
+        Long id7 = zookeeperIdleafService.getId("test", "");
+    }
 
+    @Test
+    public void getSnowGenId() {
+        SnowFlakeKeyGen snowFlakeKeyGen = new SnowFlakeKeyGen(zookeeperIdleafService.getId("user", ""));
+        String id1 = snowFlakeKeyGen.nextStringId();
+
+        String id2 = snowFlakeKeyGen.nextStringId();
     }
 }
